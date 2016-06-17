@@ -10,6 +10,7 @@ with open("userinfo.json") as conffile:
     userinfo = json.load(conffile)
 
 # No real better way...
+card_cvv = userinfo["card_cvv"]
 card_exp_month = userinfo["card_exp_month"]
 card_exp_year = userinfo["card_exp_year"]
 card_number = userinfo["card_number"]

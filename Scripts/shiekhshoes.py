@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import requests
 import re
 import timeit
@@ -31,35 +32,35 @@ def checkout(): #USA checkout
     response = session.post('https://www.shiekhshoes.com/api/ShoppingCart/UpdateShippingMethod', data=payload)
 
     payload = {
-        '__VIEWSTATEGENERATOR' : '277BF4AB',
-        'blackbox' : '',
-        'ShippingCountryId' : '222', #USA code
-        'ShippingFirstName' : first_name,
-        'ShippingLastName' : last_name,
-        'ShippingAddress1' : shipping_address_1,
-        'ShippingAddress2' : shipping_address_2,
-        'ShippingAptSuite' : shipping_apt_suite,
-        'ShippingZip' : shipping_zip,
-        'ShippingCity' : shipping_city,
-        'ShippingStateId' : state_id,
-        'ShippingMethodId' : '1',
-        'BillingAddressSameAsSippingAddress' : 'true',
-        'BillingFirstName' : first_name,
-        'BillingLastName' : last_name,
-        'BillingCardType' : card_type,
-        'BillingCardNumber' : card_number,
-        'BillingCardExpirationMonth' : card_exp_month,
-        'BillingCardExpirationYear' : card_exp_year,
-        'BillingCardSecurityCode' : card_cvv,
-        'OrderNote' : '',
-        'PhoneNumber' : phone_number,
-        'GuestEmail' : email,
-        'CacheStatus' : 'cached',
-        'HasShippingAddress' : 'false',
-        'PayWithPayPal' : 'false',
-        'CustomerEmailAddress' : '',
-        'CustomerFirstName' : '',
-        'CustomerLastName' : ''
+        '__VIEWSTATEGENERATOR': '277BF4AB',
+        'blackbox': '',
+        'ShippingCountryId': '222', #USA code
+        'ShippingFirstName': first_name,
+        'ShippingLastName': last_name,
+        'ShippingAddress1': shipping_address_1,
+        'ShippingAddress2': shipping_address_2,
+        'ShippingAptSuite': shipping_apt_suite,
+        'ShippingZip': shipping_zip,
+        'ShippingCity': shipping_city,
+        'ShippingStateId': state_id,
+        'ShippingMethodId': '1',
+        'BillingAddressSameAsSippingAddress': 'true',
+        'BillingFirstName': first_name,
+        'BillingLastName': last_name,
+        'BillingCardType': card_type,
+        'BillingCardNumber': card_number,
+        'BillingCardExpirationMonth': card_exp_month,
+        'BillingCardExpirationYear': card_exp_year,
+        'BillingCardSecurityCode': card_cvv,
+        'OrderNote': '',
+        'PhoneNumber': phone_number,
+        'GuestEmail': email,
+        'CacheStatus': 'cached',
+        'HasShippingAddress': 'false',
+        'PayWithPayPal': 'false',
+        'CustomerEmailAddress': '',
+        'CustomerFirstName': '',
+        'CustomerLastName': ''
     }
 
     response = session.post('https://www.shiekhshoes.com/api/ShoppingCart/ProcessCheckout', data=payload)
@@ -70,7 +71,7 @@ start = timeit.default_timer()
 
 session = requests.session()
 
-if (use_early_link):
+if use_early_link:
     response = session.get(early_link)
     soup = bs(response.text, 'html.parser')
     
@@ -89,4 +90,4 @@ if (use_early_link):
     checkout()
 
 stop = timeit.default_timer()
-print (stop - start) # Get the runtime
+print(stop - start) # Get the runtime

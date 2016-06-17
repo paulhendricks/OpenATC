@@ -36,8 +36,8 @@ use_keyword = False
 
 
 # Functions
-def checkout():  #USA checkout
-    #TODO: Get rid of this by making a list of state codes
+def checkout():  # USA checkout
+    # TODO: Get rid of this by making a list of state codes
     response = session.get('https://www.shiekhshoes.com/checkout.aspx?pType=cc')
 
     soup = bs(response.text, 'html.parser')
@@ -53,13 +53,13 @@ def checkout():  #USA checkout
         'Key': '1',
         'Value': 'UPS ($0.00)'
     }
-    
+
     response = session.post('https://www.shiekhshoes.com/api/ShoppingCart/UpdateShippingMethod', data=payload)
 
     payload = {
         '__VIEWSTATEGENERATOR': '277BF4AB',
         'blackbox': '',
-        'ShippingCountryId': '222', #USA code
+        'ShippingCountryId': '222',  # USA code
         'ShippingFirstName': first_name,
         'ShippingLastName': last_name,
         'ShippingAddress1': shipping_address_1,
@@ -89,9 +89,9 @@ def checkout():  #USA checkout
     }
 
     response = session.post('https://www.shiekhshoes.com/api/ShoppingCart/ProcessCheckout', data=payload)
-    print (response.text)
-    
-#Main
+    print(response.text)
+
+# Main
 start = timeit.default_timer()
 
 session = requests.session()
@@ -99,16 +99,16 @@ session = requests.session()
 if use_early_link:
     response = session.get(early_link)
     soup = bs(response.text, 'html.parser')
-    
-    size_codes = soup.find_all('a', {'class' : 'selectSize'})
+
+    size_codes = soup.find_all('a', {'class': 'selectSize'})
     size_code = ''
     for code in size_codes:
         if code['data-size'] == size:
             size_code = code['data-stock']
             continue
-        
+
     payload = {
-        '' : size_code + ',0'
+        '': size_code + ',0'
     }
 
     response = session.post('http://www.shiekhshoes.com/api/ShoppingCart/AddToCart', data=payload)

@@ -2,19 +2,43 @@
 import requests
 import re
 import timeit
+import json
 from multiprocessing.dummy import Pool as ThreadPool
 from bs4 import BeautifulSoup as bs
-from userinfo import *
 
-#User input
+with open("userinfo.json") as conffile:
+    userinfo = json.load(conffile)
+
+# No real better way...
+card_exp_month = userinfo["card_exp_month"]
+card_exp_year = userinfo["card_exp_year"]
+card_number = userinfo["card_number"]
+card_type = userinfo["card_type"]
+email = userinfo["email"]
+first_name = userinfo["first_name"]
+last_name = userinfo["last_name"]
+phone_number = userinfo["phone_number"]
+shipping_address_1 = userinfo["shipping_address_1"]
+shipping_address_2 = userinfo["shipping_address_2"]
+shipping_apt_suite = userinfo["shipping_apt_suite"]
+shipping_city = userinfo["shipping_city"]
+shipping_state = userinfo["shipping_state"]
+shipping_zip = userinfo["shipping_zip"]
+size = userinfo["size"]
+
+
+# User input
 use_early_link = True
 early_link = ''
 use_keyword = False
-#TODO: Make the logic for keyword checkout
+# TODO: Make the logic for keyword checkout
 
-#Functions
-def checkout(): #USA checkout
-    response = session.get('https://www.shiekhshoes.com/checkout.aspx?pType=cc') #TODO: Get rid of this by making a list of state codes
+
+# Functions
+def checkout():  #USA checkout
+    #TODO: Get rid of this by making a list of state codes
+    response = session.get('https://www.shiekhshoes.com/checkout.aspx?pType=cc')
+
     soup = bs(response.text, 'html.parser')
 
     state_ids = soup.find_all('option')
@@ -25,8 +49,8 @@ def checkout(): #USA checkout
             continue
 
     payload = {
-        'Key' : '1',
-        'Value' : 'UPS ($0.00)'
+        'Key': '1',
+        'Value': 'UPS ($0.00)'
     }
     
     response = session.post('https://www.shiekhshoes.com/api/ShoppingCart/UpdateShippingMethod', data=payload)
@@ -90,4 +114,4 @@ if use_early_link:
     checkout()
 
 stop = timeit.default_timer()
-print(stop - start) # Get the runtime
+print(stop - start)  # Get the runtime

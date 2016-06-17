@@ -6,7 +6,7 @@ OpenATC will start by dumping beta scripts.
 
 ### Installation
 
-OpenATC requires [Python 3](https://www.python.org/downloads/)
+OpenATC requires [Python 3](https://www.python.org/downloads/), but should also work on Python 2.
 
 You'll also need BeautifulSoup4 and requests:
 

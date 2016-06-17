@@ -15,5 +15,6 @@
     "shipping_city": "",
     "shipping_state": "",
     "shipping_zip": "",
+    "shipping_country": "",
     "size": ""
 }

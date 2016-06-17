@@ -7,9 +7,9 @@ from bs4 import BeautifulSoup as bs
 from userinfo import *
 
 #User input
-useEarlyLink = True
-earlyLink = ''
-useKeyword = False
+use_early_link = True
+early_link = ''
+use_keyword = False
 #TODO: Make the logic for keyword checkout
 
 #Functions
@@ -17,11 +17,11 @@ def checkout(): #USA checkout
     response = session.get('https://www.shiekhshoes.com/checkout.aspx?pType=cc') #TODO: Get rid of this by making a list of state codes
     soup = bs(response.text, 'html.parser')
 
-    stateIds = soup.find_all('option')
-    stateId = ''
-    for state in stateIds:
+    state_ids = soup.find_all('option')
+    state_id = ''
+    for state in state_ids:
         if state.getText() == shipping_state:
-            stateId = state['value']
+            state_id = state['value']
             continue
 
     payload = {
@@ -35,25 +35,25 @@ def checkout(): #USA checkout
         '__VIEWSTATEGENERATOR': '277BF4AB',
         'blackbox': '',
         'ShippingCountryId': '222', #USA code
-        'ShippingFirstName': firstName,
-        'ShippingLastName': lastName,
-        'ShippingAddress1': shippingAddress1,
-        'ShippingAddress2': shippingAddress2,
-        'ShippingAptSuite': shippingAptSuite,
-        'ShippingZip': shippingZip,
-        'ShippingCity': shippingCity,
-        'ShippingStateId': stateId,
+        'ShippingFirstName': first_name,
+        'ShippingLastName': last_name,
+        'ShippingAddress1': shipping_address_1,
+        'ShippingAddress2': shipping_address_2,
+        'ShippingAptSuite': shipping_apt_suite,
+        'ShippingZip': shipping_zip,
+        'ShippingCity': shipping_city,
+        'ShippingStateId': state_id,
         'ShippingMethodId': '1',
         'BillingAddressSameAsSippingAddress': 'true',
-        'BillingFirstName': firstName,
-        'BillingLastName': lastName,
-        'BillingCardType': cardType,
-        'BillingCardNumber': cardNumber,
-        'BillingCardExpirationMonth': cardExpMonth,
-        'BillingCardExpirationYear': cardExpYear,
-        'BillingCardSecurityCode': cardCvv,
+        'BillingFirstName': first_name,
+        'BillingLastName': last_name,
+        'BillingCardType': card_type,
+        'BillingCardNumber': card_number,
+        'BillingCardExpirationMonth': card_exp_month,
+        'BillingCardExpirationYear': card_exp_year,
+        'BillingCardSecurityCode': card_cvv,
         'OrderNote': '',
-        'PhoneNumber': phoneNumber,
+        'PhoneNumber': phone_number,
         'GuestEmail': email,
         'CacheStatus': 'cached',
         'HasShippingAddress': 'false',
@@ -71,19 +71,19 @@ start = timeit.default_timer()
 
 session = requests.session()
 
-if useEarlyLink:
-    response = session.get(earlyLink)
+if use_early_link:
+    response = session.get(early_link)
     soup = bs(response.text, 'html.parser')
     
-    sizeCodes = soup.find_all('a', {'class' : 'selectSize'})
-    sizeCode = ''
-    for code in sizeCodes:
+    size_codes = soup.find_all('a', {'class' : 'selectSize'})
+    size_code = ''
+    for code in size_codes:
         if code['data-size'] == size:
-            sizeCode = code['data-stock']
+            size_code = code['data-stock']
             continue
         
     payload = {
-        '' : sizeCode + ',0'
+        '' : size_code + ',0'
     }
 
     response = session.post('http://www.shiekhshoes.com/api/ShoppingCart/AddToCart', data=payload)

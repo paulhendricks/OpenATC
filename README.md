@@ -8,13 +8,14 @@ OpenATC will start by dumping beta scripts.
 
 OpenATC requires [Python 3](https://www.python.org/downloads/)
 
-You'll also need bs4:
+You'll also need BeautifulSoup4 and requests:
 
 ```sh
 $ pip install bs4
+$ pip install requests
 ```
 
 License
 ----
 
-MIT
+OpenATC is licensed under the MIT license.
